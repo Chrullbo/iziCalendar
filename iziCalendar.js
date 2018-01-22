@@ -5,7 +5,6 @@
 		var startdate = "";
 		var days = ["MÅN", "TIS", "ONS", "TOR", "FRE", "LÖR", "SÖN"];
 		var selecteddays = [];
-		//var colors = ["ff9933", "ff9966", "ff9999", "ff99cc", "ff99ff", "ff99ff", "ff99ff", "ff99ff"];
         var colors = {
             "transparent":["transparent","gray","whitesmoke"],
             "orange":["orange","white","orange"],
@@ -16,7 +15,6 @@
             "purple":["mediumpurple","white","rebeccapurple"],
             "selectedcell":["whitesmoke","black","whitesmoke"]
         };
-
 		var daysFull = ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"];
 		var months = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "jul", "Aug", "Sep", "Okt", "Nov", "Dec"];
 		var obj = [];
@@ -53,19 +51,21 @@
 			$(this).closest(".choosetimecontainer").remove();
 		});
 		$(document).on("click", "." + prefix + "singleselectdelbtn", function () {
-			//$(".singleselectvaluecontainer").remove();
 			var con = $(this).closest(".singleselectvaluecontainer");
 			var date = con.find(".singleselectdate").html();
-			delFromOutputElements(date);
-			var i = selecteddays.indexOf(date);
-			if (i > -1)
-				selecteddays.slice(i, 1);
+            delFromOutputElements(date);
+
+            console.log(selecteddays);
+            selecteddays = selecteddays.filter(item => item !== date)
+            console.log(selecteddays);
+               
+            
 			var sd = $("#" + prefix + " a[href=\"#" + date + "\"]");
 			if (sd.length > 0){
                 sd.parent().css("background-color",colors["transparent"][0]);
                 sd.parent().removeClass("selectedcell");
             }
-				
+            
 			$(this).closest(".singleselectvaluecontainer").remove();
 		});
         $(window).resize(function() {
@@ -99,7 +99,7 @@
 				var dateAsDate = new Date(date);
 				var startAsDate = new Date();
 				var first = false;
-				if (!settings.singleSelectWithTime && (selecteddays.length > 1 || selecteddays.length === 0)) {
+				if (!settings.singleSelect && (selecteddays.length > 1 || selecteddays.length === 0)) {
                     $(".calendarcell").removeClass("selectedcell");
                     $(".calendarcell").css("background-color",colors["transparent"][0]);
 					selecteddays = [];
@@ -116,18 +116,16 @@
                         if (dateAsDate < startAsDate)
 						    return;
                     }
-					
 				}
-
 				if (settings.singleSelect) {
-
 					if (settings.singleSelectWithTime) {
 						$(".choosetimecontainer").remove();
 						if ($(this).parent().hasClass("selectedcell")) return;
-
 						$(this).parent().append("<div class=\"choosetimecontainer\" style=\"line-height:20px;position: absolute;width: 200px;border: 0.8px solid lightgray;padding: 10px; background-color: whitesmoke;\"><div style=\"text-align:right\"><button style=\"background-color:transparent;border:0;margin:0;padding:0;cursor:pointer\" class=\""+ prefix + "timecontainerdelbtn\"><svg style=\"width:24px;height:24px\" viewBox=\"0 0 24 24\"><path fill=\"gray\" d=\"M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z\" /></svg></button></div><div style=\"text-align:center\">Välj start & sluttid</div><hr /><div style=\"text-align:center\"><select class=\"form-control starttime\">" + getClocks(true) + "</select> - <select class=\"form-control endtime\">" + getClocks(false) + "</select><hr /><input type=\"hidden\" class=\"selecteddate\" value=\"" + date + "\" /></div><button style=\"margin-top:5px\" class=\"btn btn-block " + prefix + "savestartendtimebtn\">Spara</button></div>");
 					}
 					else {
+                        if ($(this).parent().hasClass("selectedcell")) return;
+                        selecteddays.push(date);
 						setOutputElements(settings.outputStartElements, date);
 					}
 				}
@@ -140,9 +138,7 @@
 						}
 						setOutputElements(settings.outputEndElements, date);
 						$("#" + prefix + "intervalenddate").val(date);
-
 					}
-
 				}
 				if (!settings.singleSelectWithTime)
 					for (var i = 0; i < selecteddays.length; i++) {
@@ -152,9 +148,7 @@
                             sd.parent().css("background-color",colors["selectedcell"][0]);
                             sd.parent().addClass("selectedcell");
                         }
-							
 					}
-
 			});
 		}
 		function addDays(date, days) {
@@ -224,7 +218,6 @@
 			return str.replace(prefix, "");
 		}
 		function reloadCal(dd) {
-            //startdate = "";
             var dt = colors["transparent"];
             $(".calendarcell").css("background-color",dt[0]);
             $(".calendarcell a").css("color",dt[1])
@@ -251,7 +244,6 @@
 			var fullNext = n.getFullYear() + "-" + getNumberString(n.getMonth() + 1);
 			var fullBack = b.getFullYear() + "-" + getNumberString(b.getMonth() + 1);
 			var currentDate = d.getFullYear() + "-" + getNumberString(d.getMonth() + 1);
-			//$("#" + prefix + "next").html(months[n.getMonth()] + " " + "<span class=\"glyphicon glyphicon-chevron-right\"></span>");
 			$("#" + prefix + "next").html("<svg style=\"width:24px;height:24px\"><path fill=\"#000000\" d=\"M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z\" /></svg>");
 			$("#" + prefix + "next").attr("href", "#" + fullNext);
 			$("#" + prefix + "back").html("<svg style=\"width:24px;height:24px\"><path fill=\"#000000\" d=\"M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z\" /></svg>");// + " " + months[b.getMonth()]);
@@ -365,24 +357,6 @@
 			}
 			return null;
 		}
-		// function getColorClassFromStatus(t) {
-		// 	if (t < 0)
-		// 		return "izicalendar-transparent";
-		// 	switch (t) {
-		// 		case 1:
-		// 			return "izicalendar-orange";//RequestSend
-		// 		case 2:
-		// 			return "izicalendar-blue";//RequestAccepeted";
-		// 		case 3:
-		// 			return "izicalendar-red";
-		// 		case 4:
-		// 			return "izicalendar-green";//Started;
-		// 		case 5:
-		// 			return "izicalendar-green";//Done,;
-		// 		default:
-		// 			return "izicalendar-transparent";
-		// 	}
-		// }
 		function getTimeFromDate(d) {
 			var s = d.split(" ");
 			return s[1];
@@ -453,7 +427,6 @@
 					endtime +
 					"</span>";
             }
-            //M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z
 			return "<div class=\"singleselectvaluecontainer\" style=\"margin-bottom: 2px;padding: 1em;background-color: white;border: 1px solid lightgray;\"><button style=\"background-color:transparent;border:0;margin:0;padding:0 2em 0 0;vertical-align:middle;cursor:pointer\" title=\"Ta bort post\" class=\""+ prefix + "singleselectdelbtn\"><svg style=\"width:24px;height:24px\" viewBox=\"0 0 24 24\"><path fill=\"gray\" d=\"M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z\" /></svg></button><span class=\"singleselectdate\">" + date + "</span>" + timesContainer + "</div>";
 		}
 		function randomString() {
