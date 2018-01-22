@@ -398,7 +398,7 @@
 					if (element.length > 0) {
 						if (element.is("input")) {
 							if (settings.singleSelect)
-								element.val((element.val() + "," + value).substr(1));
+								element.val(element.val() + "," + value);
 							else
 								element.val(value);
 						}
