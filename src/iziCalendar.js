@@ -54,12 +54,7 @@
 			var con = $(this).closest(".singleselectvaluecontainer");
 			var date = con.find(".singleselectdate").html();
             delFromOutputElements(date);
-
-            console.log(selecteddays);
-            selecteddays = selecteddays.filter(item => item !== date)
-            console.log(selecteddays);
-               
-            
+            selecteddays = selecteddays.filter(item => item !== date);
 			var sd = $("#" + prefix + " a[href=\"#" + date + "\"]");
 			if (sd.length > 0){
                 sd.parent().css("background-color",colors["transparent"][0]);

@@ -1,0 +1,28 @@
+{
+  "name": "iziCalendar",
+  "version": "1.0.0",
+  "description": "",
+  "main": "iziCalendar.js",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "webpack": "^3.10.0"
+  },
+  "scripts": {
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Chrullbo/iziCalendar.git"
+  },
+  "keywords": [],
+  "author": "Christian Kihlstrand",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Chrullbo/iziCalendar/issues"
+  },
+  "homepage": "https://github.com/Chrullbo/iziCalendar#readme"
+}
