@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
+    <script src="iziCalendar.js"></script>
+    <link rel="stylesheet" href="iziCalendar.css"/>
+</head>
+<body style="font-family:Arial, Helvetica, sans-serif">
+    <div><label>First click, hidden field(visible this demo)</label><input type="text" id="startdate"/></div>
+    <div><label>Second click, hidden field(visible this demo)</label><input type="text" id="enddate"/></div>
+    <h3>You'r choice is <span id="startdatevisual"></span> - <span id="enddatevisual"></span></h3>
+    <div style="padding:2em" id="calendar"></div>
+    <div><label>Clicks, hidden field(visible this demo)</label><input style="width:100%" type="text" id="startdates"/></div>
+    <p><span id="startdatesvisual"></span></p>
+    <div style="padding:2em" id="calendar2"></div>
+
+</body>
+<script>
+    $("#calendar2").iziCalendar({ getUrl: "", singleSelect: true, singleSelectWithTime: true, selectable: true, outputStartElements: ["startdates", "startdatesvisual"] });
+    $("#calendar").iziCalendar({ getUrl: "", selectable: true, outputStartElements: ["startdate", "startdatevisual"], outputEndElements: ["enddate", "enddatevisual"] });
+</script>
+</html>
