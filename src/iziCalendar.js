@@ -53,8 +53,11 @@
 		$(document).on("click", "." + prefix + "singleselectdelbtn", function () {
 			var con = $(this).closest(".singleselectvaluecontainer");
 			var date = con.find(".singleselectdate").html();
-            delFromOutputElements(date);
-            selecteddays = selecteddays.filter(item => item !== date);
+			delFromOutputElements(date);
+			function isDate(item){
+				return item!==date;
+			}
+			selecteddays = selecteddays.filter(isDate);
 			var sd = $("#" + prefix + " a[href=\"#" + date + "\"]");
 			if (sd.length > 0){
                 sd.parent().css("background-color",colors["transparent"][0]);
