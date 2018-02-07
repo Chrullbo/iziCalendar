@@ -7,22 +7,22 @@
 </head>
 <body style="font-family:Arial, Helvetica, sans-serif">
     <h3>Calendar 1</h3>
-    <pre>Options (selectable: true, outputStartElements: [one form element, one span], outputEndElements: [one form element, one span])</pre>
+    <p>Options (selectable: true, outputStartElements: [one form element, one span], outputEndElements: [one form element, one span])</p>
     <hr />
     <div><label>Selected startdate, hidden field(visible this demo)</label><input type="text" id="startdate"/></div>
     <div><label>Selected enddate, hidden field(visible this demo)</label><input type="text" id="enddate"/></div>
     <p>You'r choice is <span id="startdatevisual"></span> - <span id="enddatevisual"></span></p>
     <div style="padding:2em" id="calendar"></div>
     <h3>Calendar 2</h3>
-    <pre>Options (selectable: true, singleSelect: true, singleSelectWithTime: true, outputStartElements: [one form element, one span])</pre>
+    <p>Options (selectable: true, singleSelect: true, singleSelectWithTime: true, outputStartElements: [one form element, one span])</p>
     <hr />
     <div><label>Selected dates, hidden field(visible this demo)</label><input style="width:100%" type="text" id="startdates"/></div>
-    <p><span id="startdatesvisual"></span></p>
+    <p><div id="startdatesvisual"></div></p>
     <div style="padding:2em" id="calendar2"></div>
 </body>
 <script src="build/bundle.js"></script>
 <script>
-    $("#calendar2").iziCalendar({ getUrl: "", singleSelect: true, singleSelectWithTime: true, selectable: true, outputStartElements: ["startdates", "startdatesvisual"] });
+    $("#calendar2").iziCalendar({ getUrl: "", singleSelect: true, singleSelectWithTime: false, selectable: true, outputStartElements: ["startdates", "startdatesvisual"] });
     $("#calendar").iziCalendar({ getUrl: "", selectable: true, outputStartElements: ["startdate", "startdatevisual"], outputEndElements: ["enddate", "enddatevisual"] });
 </script>
 </html>
