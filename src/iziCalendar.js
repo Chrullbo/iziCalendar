@@ -46,7 +46,7 @@
 				$("#"+prefix+" .calendarcell").css(styles);
 			}
 		});
-		observer.observe(rootelement,{attributes:true});
+		observer.observe(rootelement,{attributes:true, childList:true });
         width = $(this).width() / 7;
 		$(this).html("<div id=\"" + prefix + "\" class=\"calendarContainer iziCalendar\" style=\"background-color:white\"><input type=\"text\" id=\"" + prefix + "intervalstartdate\" style=\"display:none\" /><input type=\"text\" id=\"" + prefix + "intervalenddate\" style=\"display:none\" /><table style=\"margin-bottom: 1em;border-collapse: separate;border-spacing: 0 1px;margin: 0;width: 100%\"><tr><td style=\"text-align:left\"><a class=\"navigateCalendar\" id=\"" + prefix + "back\"></a></td><td style=\"text-align:center\" id=\"" + prefix + "SelectedDate\"></td><td style=\"text-align:right\"><a class=\"navigateCalendar\" id=\"" + prefix + "next\"></a></td></tr><table><div id=\"" + prefix + "MonthCalendarContainer\"><table style=\"border-collapse: separate;border-spacing: 0 1px;margin: 0;width: 100%\" id=\"" + prefix + "MonthCalendar\"></table><div style=\"clear:both\"></div><div id=\"" + prefix + "SelectedDayContainer\"></div></div> <div id=\"" + prefix + "DayCalendarContainer\"><div id=\"" + prefix + "DayCalendar\"></div></div></div></div>");
         $("#" + prefix + "MonthCalendar").html(getMonthCalendar());
